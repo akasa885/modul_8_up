@@ -5,9 +5,8 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-class PagerAdapter(private val mContext: Context, fm:
-FragmentManager) :
-    FragmentPagerAdapter(fm) {
+class PagerAdapter(private val mContext: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
+    var ft = fm.beginTransaction()
     override fun getItem(position: Int): Fragment {
         return if (position == 0) {
             fragment_first.newInstance()

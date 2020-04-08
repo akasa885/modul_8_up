@@ -22,14 +22,26 @@ class fragment_third : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_third,
-            container, false) }
+        var v =  inflater.inflate(R.layout.fragment_third,
+            container, false)
+        return v
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
-        txtName = view.findViewById(R.id.link)
+        var web = view.findViewById<WebView>(R.id.sec_web)
+        web.settings.javaScriptEnabled = true
+        web.webViewClient = WebViewClient()
+//        fungsi yang digunakan untuk menangkap aktifitas pada WebView, atau overRide url click
+        web.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                view?.loadUrl(url)
+                return true
+            }
+        }
         communicationViewModel!!.linkWeb.observe(requireActivity(),
-            Observer { s -> txtName!!.text  = s })
+            Observer { s -> url_web  = s })
+        web.loadUrl("https://${url_web}")
     }
 
     companion object {
